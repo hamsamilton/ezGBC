@@ -1,0 +1,3 @@
+[E::hts_open_format] Failed to open file bam
+samtools index: failed to open "bam": No such file or directory
+mkdir: cannot create directory ‘indexed_bams’: File exists
