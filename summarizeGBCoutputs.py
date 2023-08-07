@@ -7,6 +7,8 @@ Email:      samuelhamilton2024@u.northwestern.edu
 import sys
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg') # set backend to agg
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -104,8 +106,14 @@ def geneBody_summaryTable(_input_txt_dir, _out_dir, _project_name):
 # save the figure to a pdf
     plt.savefig(str(_out_dir)+"/"+str(_project_name)+"_GeneBody_Coverage_LinePlot.pdf", format='pdf')
 
-# write datatable to the csv file ---------------------------------------------------
-    result_scaled.to_csv(str(_out_dir)+"/"+str(_project_name)+"_Genebody_Coverage_summary.csv", index=True) # the output is the specified out-directory and desired filename
+
+    results_tidydata = result_scaled
+    results_tidydata.index =  results_tidydata.pop("Percentile")
+    results_tidydata = results_tidydata.T
+
+    results_tidydata.to_csv(str(_out_dir)+"/"+str(_project_name)+"_Genebody_Coverage_summary.csv") # the output is the specified out-directory and desired filename
+#   remove the first column
+
 #  make the heatmap for genebody coverage ---------------------------------------------
     result_scaled = result_scaled.set_index(result_scaled.columns[0])
 
