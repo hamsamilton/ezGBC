@@ -22,9 +22,14 @@ for bam in "$bam_dir"/*bam; do
 done
 
 # move all text files to a separate folder
-mkdir coverage_outputs
-mv *.txt coverage_outputs
+mkdir out_dir
+mkdir out_dir/coverage_outputs
+mv *.txt out_dir/coverage_outputs
 
-mkdir $3
+# remove extraneous files created by rseqc
+rm "$bam_dir"/*.bai
+rm "$bam_dir"/*.R
+rm "$bam_dir"/*.pdf
+
 # run summary code
-python summarizeGBCoutputs.py -txtdir coverage_outputs -out $3 -name $4
+python summarizeGBCoutputs.py -txtdir coverage_outputs -out out_dir -name name
